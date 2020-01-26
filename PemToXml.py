@@ -38,35 +38,35 @@ def pubKeyXML(pemPublicKeyFile):
 def privKeyXML(pemPrivateKeyFile):
    with open (pemPrivateKeyFile, 'rb') as pkFile:
       pemPrivKey = pkFile.read()
-   print pemPrivKey
-   lines = pemPrivKey.replace(" ", '').split()
-   print lines
+   print (pemPrivKey)
+   lines = pemPrivKey.decode().replace(" ", '').split()
+   print (lines)
    keyDer = DerSequence()
    keyDer.decode(a2b_base64(''.join(lines[1:-1])))
    xml  = '<RSAKeyValue>'
    xml += '<Modulus>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[1]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[1])).decode()
    xml += '</Modulus>'
    xml += '<Exponent>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[2]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[2])).decode()
    xml += '</Exponent>'
    xml += '<D>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[3]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[3])).decode()
    xml += '</D>'
    xml += '<P>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[4]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[4])).decode()
    xml += '</P>'
    xml += '<Q>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[5]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[5])).decode()
    xml += '</Q>'
    xml += '<DP>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[6]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[6])).decode()
    xml += '</DP>'
    xml += '<DQ>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[7]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[7])).decode()
    xml += '</DQ>'
    xml += '<InverseQ>'
-   xml += standard_b64encode(number.long_to_bytes(keyDer[8]))
+   xml += standard_b64encode(number.long_to_bytes(keyDer[8])).decode()
    xml += '</InverseQ>'
    xml += '</RSAKeyValue>'
    fileName = basename(pemPrivateKeyFile)
@@ -145,6 +145,6 @@ def main(args):
          inputfile = args.private
          privKeyPEM(inputfile)
    else:
-      print 'Nothing to do'
+      print ('Nothing to do')
 if __name__ == "__main__":
    main(parse_args())
